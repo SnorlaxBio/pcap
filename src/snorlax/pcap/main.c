@@ -10,11 +10,10 @@
 #include <stdio.h>
 
 #include <snorlax/pcap.h>
+#include <snorlax/protocol/ethernet.h>
 
 static void snorlax_pcap_packet_handler(uint8_t * user, snorlax_pcap_packet_header_t * header, const uint8_t * packet);
 static void snorlax_pcap_packet_debug(FILE * fp, uint8_t * user, snorlax_pcap_packet_header_t * header, const uint8_t * packet);
-
-static void snorlax_protocol_ethernet_debug(FILE * stream, const uint8_t * packet);
 
 static void print(uint8_t * user, snorlax_pcap_packet_header_t * header, const uint8_t * packet);
 
@@ -31,11 +30,7 @@ static void snorlax_pcap_packet_handler(uint8_t * user, snorlax_pcap_packet_head
 static void snorlax_pcap_packet_debug(FILE * stream, uint8_t * user, snorlax_pcap_packet_header_t * header, const uint8_t * packet) {
     fprintf(stream, "%ld.%06ld\n", snorlax_pcap_packet_header_second_get(header), snorlax_pcap_packet_header_unisecond_get(header));
 
-    // snorlax_protocol_ethernet_debug(stream, packet);
+    ethernet_protocol_debug(stream, packet);
 
     fprintf(stream, "\n");
-}
-
-static void snorlax_protocol_ethernet_debug(FILE * stream, const uint8_t * packet) {
-
 }
